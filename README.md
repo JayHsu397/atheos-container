@@ -56,7 +56,7 @@ This is a more practical setup for normal self-hosting use.
 
 > [!Caution]
 > - `/var/www/html/workspace` uses ___`bind mount`___
-> - while `/var/www/html/workspace`, `plugins`, and `theme` use ___`Named-mount`___
+> - while `/var/www/html/data`, `plugins`, and `theme` use ___`Named-mount`___
 
 
 > [!Important]
@@ -101,6 +101,10 @@ RestartSec=5
 WantedBy=default.target
 ```
 
+> [!Caution]
+> - `/var/www/html/workspace` uses ___`bind mount`___
+> - while `/var/www/html/data`, `plugins`, and `theme` use ___`Named-mount`___
+
 > [!Note] 
 >Remember to run the commands below after configuring your Quadlet file:
 > ```bash
@@ -128,12 +132,24 @@ Additional notes:
 | `/var/www/html/plugins` | Stores installed plugins |
 | `/var/www/html/theme` | Stores IDE themes |
 
-Notes:
+> [!IMPORTANT]
+> - `/var/www/html/workspace` uses a **bind mount**.
+> - `/var/www/html/data`, `/var/www/html/plugins`, and `/var/www/html/theme` use **named volumes**.
+> - A **`bind mount`** maps a directory from the host filesystem directly into the container.
+> - A **`named volume`** is managed by Podman and can preserve the files that are initialized from the image.
+> - If you mount a host directory directly over paths such as `data`, `plugins`, or `theme`, the existing files inside the image will be hidden.
+> - Using **`named volumes`** for these paths helps preserve the initial image contents and avoids breaking the container's expected structure.
+> - Make sure to create the required volumes before starting the container:
+>
+> ```bash
+> podman volume create VOLUME_NAME
+> ```
 
-- Mounting `workspace` is normally required if you want the code you edit to live outside the container.
-- Mounting `data` is strongly recommended if you want your user and preference data to persist across container recreation or restart.
-- Mounting `plugins` is required if you want to keep installed plugins.
-- On SELinux-enabled systems, keep the `:z` or `:Z` suffix on bind mounts.
+> [!Note]
+> - Mounting `workspace` is normally required if you want the code you edit to live outside the container.
+> - Mounting `data` is strongly recommended if you want your user and preference data to persist across container recreation or restart.
+> - Mounting `plugins` is required if you want to keep installed plugins.
+> - On SELinux-enabled systems, keep the `:z` or `:Z` suffix on bind mounts.
 
 ## 5. Extended Features and Configurations
 
