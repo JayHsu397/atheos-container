@@ -38,7 +38,7 @@ This is the simplest way to start the container.
 > [!NOTE]
 > - If you didn't set `LAZY_PERMISSION` as `true`, you need to manage the permission yourself, or the IDE won't function properly.
 > - Your code directory should be mounted into `/var/www/html/workspace` for persistence.
-> - Without an additional mount for the configuration directory, user initialization will be required every time you restart the container.
+> - Without an additional mount for the configuration directory, user initialization will be required every time you recreate the container.
 
 Recommended startup command with persistent configurations, and permission adjustment in case the Web IDE does not have permission to write to your directory:
 
