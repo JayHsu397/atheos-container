@@ -150,7 +150,7 @@ Additional notes:
 > - Mounting `workspace` is normally required if you want the code you edit to live outside the container.
 > - Mounting `data` is strongly recommended if you want your user and preference data to persist across container recreation or restart.
 > - Mounting `plugins` is required if you want to keep installed plugins.
-> - On SELinux-enabled systems, keep the `:z` or `:Z` suffix on bind mounts.
+> - On SELinux-enabled systems, keep the `:z` or `:Z` suffix on mounts.
 
 ## 5. Extended Features and Configurations
 
