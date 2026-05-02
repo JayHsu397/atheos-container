@@ -54,12 +54,12 @@ podman run -p your-port:80 \
 
 This is a more practical setup for normal self-hosting use.
 
-> [!Warning]
+> [!Caution]
 > - `/var/www/html/workspace` uses ___`bind mount`___
 > - while `/var/www/html/workspace`, `plugins`, and `theme` use ___`Named-mount`___
 
 
-> [!Note]
+> [!Important]
 > - In the command above, `workspace` uses a `bind mount`, which means mounting a directory from the host filesystem into the container.
 > - On the other hand, `data`, `plugins`, and `theme` use `named volumes`, which means mounting named volumes into the container.
 > - Simply mounting a host directory over these paths hides the existing files in the image, while mounting a `named volume` copies the >existing files into the volume automatically, which helps ensure the container functions properly.
