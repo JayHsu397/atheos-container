@@ -55,7 +55,8 @@ podman run -p your-port:80 \
 This is a more practical setup for normal self-hosting use.
 
 > [!Warning]
-> `/var/www/html/workspace` uses `bind mount`, while `/var/www/html/workspace`, `plugins`, and `theme` uses `Named-mount`
+> - `/var/www/html/workspace` uses ___`bind mount`___
+> - while `/var/www/html/workspace`, `plugins`, and `theme` use ___`Named-mount`___
 
 
 > [!Note]
