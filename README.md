@@ -62,12 +62,11 @@ This is a more practical setup for normal self-hosting use.
 > [!Note]
 > - In the command above, `workspace` uses a `bind mount`, which means mounting a directory from the host filesystem into the container.
 > - On the other hand, `data`, `plugins`, and `theme` use `named volumes`, which means mounting named volumes into the container.
-> - Simply mounting a host directory over these paths hides the existing files in the image, while mounting a `named volume` copies the existing files into the volume automatically, which helps ensure the container functions properly.
-  - Remember to create the volumes you need before starting the container.
-
-  ```bash
-  podman volume create VOLUME_NAME
-  ```
+> - Simply mounting a host directory over these paths hides the existing files in the image, while mounting a `named volume` copies the >existing files into the volume automatically, which helps ensure the container functions properly.
+>  - Remember to create the volumes you need before starting the container.
+>  ```bash
+>  podman volume create VOLUME_NAME
+>  ```
 
 - `LAZY_PERMISSION` is used to adjust the permission and owner of `/var/www/html` and its contents, and should be set to `true` or `false` (`false` by default).
 
@@ -104,7 +103,6 @@ WantedBy=default.target
 
 > [!Note] 
 >Remember to run the commands below after configuring your Quadlet file:
-
 > ```bash
 > loginctl enable-linger $USER
 > systemctl --user daemon-reload
