@@ -1,8 +1,8 @@
 # Atheos Container Image
 
-Unofficial container image of [Atheos](https://github.com/Atheos/Atheos).
+Unofficial container image of Atheos.
 
-Powered by [Atheos IDE](https://github.com/Atheos)
+Powered by Atheos IDE
 
 ## 1. Features
 
@@ -25,7 +25,7 @@ podman pull ghcr.io/jayhsu397/atheos:latest
 ### 2-1. Command Line
 
 Minimal startup command  
-Visit the Web IDE at `http://127.0.0.1:8000`
+Visit the Web IDE at <http://127.0.0.1:8000>
 
 ```bash
 podman run -p 8000:80 \
@@ -35,8 +35,8 @@ podman run -p 8000:80 \
 
 This is the simplest way to start the container.
 
-> [!Note]
-> - If you didn't set `LAZY_PERMISSION` as true, you need to manage the permission your self, or the IDE won't fuction properly.
+> [!NOTE]
+> - If you didn't set `LAZY_PERMISSION` as `true`, you need to manage the permission yourself, or the IDE won't function properly.
 > - Your code directory should be mounted into `/var/www/html/workspace` for persistence.
 > - Without an additional mount for the configuration directory, user initialization will be required every time you restart the container.
 
@@ -54,25 +54,25 @@ podman run -p your-port:80 \
 
 This is a more practical setup for normal self-hosting use.
 
-> [!Caution]
-> - `/var/www/html/workspace` uses ___`bind mount`___
-> - while `/var/www/html/data`, `plugins`, and `theme` use ___`Named-mount`___
+> [!CAUTION]
+> - `/var/www/html/workspace` uses a bind mount
+> - while `/var/www/html/data`, `plugins`, and `theme` use named volumes
 
+> [!IMPORTANT]
+> - In the command above, `workspace` uses a bind mount, which means mounting a directory from the host filesystem into the container.
+> - On the other hand, `data`, `plugins`, and `theme` use named volumes, which means mounting named volumes into the container.
+> - Simply mounting a host directory over these paths hides the existing files in the image, while mounting a named volume copies the existing files into the volume automatically, which helps ensure the container functions properly.
+> - Remember to create the volumes you need before starting the container.
+>
+> ```bash
+> podman volume create VOLUME_NAME
+> ```
 
-> [!Important]
-> - In the command above, `workspace` uses a `bind mount`, which means mounting a directory from the host filesystem into the container.
-> - On the other hand, `data`, `plugins`, and `theme` use `named volumes`, which means mounting named volumes into the container.
-> - Simply mounting a host directory over these paths hides the existing files in the image, while mounting a `named volume` copies the >existing files into the volume automatically, which helps ensure the container functions properly.
->  - Remember to create the volumes you need before starting the container.
->  ```bash
->  podman volume create VOLUME_NAME
->  ```
-
-- `LAZY_PERMISSION` is used to adjust the permission and owner of `/var/www/html` and its contents, and should be set to `true` or `false` (`false` by default).
+- `LAZY_PERMISSION` is used to adjust the permissions and ownership of `/var/www/html` and its contents, and should be set to `true` or `false` (`false` by default).
 
 ### 2-2. Quadlet
 
-If you use systemd as your init system and want the container to start on boot, `Quadlet` may satisfy your needs.
+If you use `systemd` as your init system and want the container to start on boot, Quadlet may satisfy your needs.
 
 Example placed in `$HOME/.config/containers/systemd/atheos.container`
 
@@ -101,23 +101,24 @@ RestartSec=5
 WantedBy=default.target
 ```
 
-> [!Caution]
-> - `/var/www/html/workspace` uses ___`bind mount`___
-> - while `/var/www/html/data`, `plugins`, and `theme` use ___`Named-mount`___
+> [!CAUTION]
+> - `/var/www/html/workspace` uses a bind mount
+> - while `/var/www/html/data`, `plugins`, and `theme` use named volumes
 
-> [!Note] 
->Remember to run the commands below after configuring your Quadlet file:
-> ```bash
-> loginctl enable-linger $USER
-> systemctl --user daemon-reload
-> systemctl --user start atheos
-> ```
+> [!NOTE]
+> Remember to run the commands below after configuring your Quadlet file:
+
+```bash
+loginctl enable-linger $USER
+systemctl --user daemon-reload
+systemctl --user start atheos
+```
 
 ## 3. Environment Variables
 
 | Name | Description |
-| - | - |
-| `LAZY_PERMISSION` | Adjust permissions at runtime, visit [`start.sh`](https://github.com/JayHsu397/atheos-container/blob/main/start.sh) to know how it works|
+|---|---|
+| `LAZY_PERMISSION` | Adjust permissions at runtime, visit `start.sh` to know how it works |
 
 Additional notes:
 
@@ -126,26 +127,26 @@ Additional notes:
 ## 4. Volumes
 
 | Path inside container | Purpose |
-| - | - |
+|---|---|
 | `/var/www/html/workspace` | Stores your coding project |
 | `/var/www/html/data` | Stores preference settings and user info |
 | `/var/www/html/plugins` | Stores installed plugins |
 | `/var/www/html/theme` | Stores IDE themes |
 
 > [!IMPORTANT]
-> - `/var/www/html/workspace` uses a **bind mount**.
-> - `/var/www/html/data`, `/var/www/html/plugins`, and `/var/www/html/theme` use **named volumes**.
-> - A **`bind mount`** maps a directory from the host filesystem directly into the container.
-> - A **`named volume`** is managed by Podman and can preserve the files that are initialized from the image.
+> - `/var/www/html/workspace` uses a bind mount.
+> - `/var/www/html/data`, `/var/www/html/plugins`, and `/var/www/html/theme` use named volumes.
+> - A bind mount maps a directory from the host filesystem directly into the container.
+> - A named volume is managed by Podman and can preserve the files that are initialized from the image.
 > - If you mount a host directory directly over paths such as `data`, `plugins`, or `theme`, the existing files inside the image will be hidden.
-> - Using **`named volumes`** for these paths helps preserve the initial image contents and avoids breaking the container's expected structure.
+> - Using named volumes for these paths helps preserve the initial image contents and avoids breaking the container's expected structure.
 > - Make sure to create the required volumes before starting the container:
 >
 > ```bash
 > podman volume create VOLUME_NAME
 > ```
 
-> [!Note]
+> [!NOTE]
 > - Mounting `workspace` is normally required if you want the code you edit to live outside the container.
 > - Mounting `data` is strongly recommended if you want your user and preference data to persist across container recreation or restart.
 > - Mounting `plugins` is required if you want to keep installed plugins.
@@ -155,7 +156,7 @@ Additional notes:
 
 This image provides a basic environment based on the official project, and does not provide any IDE customization.
 
-If you need more customized features, please visit [the source repo of Atheos](https://github.com/Atheos/Atheos).
+If you need more customized features, please visit the source repository of Atheos.
 
 ## 6. License
 
