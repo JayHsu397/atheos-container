@@ -29,7 +29,7 @@ Visit the Web IDE at <http://127.0.0.1:8000>
 
 ```bash
 podman run -p 8000:80 \
-  -v /path/to/your-project:/var/www/html/workspace:z \
+  -v /PATH/TO/YOUR/PROJECT:/var/www/html/workspace:z \
   ghcr.io/jayhsu397/atheos:latest
 ```
 
