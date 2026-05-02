@@ -35,11 +35,10 @@ podman run -p 8000:80 \
 
 This is the simplest way to start the container.
 
-Notes:
-
-- If you didn't set `LAZY_PERMISSION` as true, you need to manage the permission your self, or the IDE won't fuction properly.
-- Your code directory should be mounted into `/var/www/html/workspace` for persistence.
-- Without an additional mount for the configuration directory, user initialization will be required every time you restart the container.
+> [!Note]
+> - If you didn't set `LAZY_PERMISSION` as true, you need to manage the permission your self, or the IDE won't fuction properly.
+> - Your code directory should be mounted into `/var/www/html/workspace` for persistence.
+> - Without an additional mount for the configuration directory, user initialization will be required every time you restart the container.
 
 Recommended startup command with persistent configurations, and permission adjustment in case the Web IDE does not have permission to write to your directory:
 
@@ -59,13 +58,10 @@ This is a more practical setup for normal self-hosting use.
 > `/var/www/html/workspace` uses `bind mount`, while `/var/www/html/workspace`, `plugins`, and `theme` uses `Named-mount`
 
 
-Notes:
-
-- In the command above, `workspace` uses a `bind mount`, which means mounting a directory from the host filesystem into the container.
-
-- On the other hand, `data`, `plugins`, and `theme` use `named volumes`, which means mounting named volumes into the container.
-
-- Simply mounting a host directory over these paths hides the existing files in the image, while mounting a `named volume` copies the existing files into the volume automatically, which helps ensure the container functions properly.
+> [!Note]
+> - In the command above, `workspace` uses a `bind mount`, which means mounting a directory from the host filesystem into the container.
+> - On the other hand, `data`, `plugins`, and `theme` use `named volumes`, which means mounting named volumes into the container.
+> - Simply mounting a host directory over these paths hides the existing files in the image, while mounting a `named volume` copies the existing files into the volume automatically, which helps ensure the container functions properly.
   - Remember to create the volumes you need before starting the container.
 
   ```bash
@@ -105,13 +101,14 @@ RestartSec=5
 WantedBy=default.target
 ```
 
-Remember to run the commands below after configuring your Quadlet file:
+> [!Note] 
+>Remember to run the commands below after configuring your Quadlet file:
 
-```bash
-loginctl enable-linger $USER
-systemctl --user daemon-reload
-systemctl --user start atheos
-```
+> ```bash
+> loginctl enable-linger $USER
+> systemctl --user daemon-reload
+> systemctl --user start atheos
+> ```
 
 ## 3. Environment Variables
 
