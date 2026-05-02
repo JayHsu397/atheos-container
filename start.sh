@@ -14,13 +14,23 @@ done
 
 #Adjust Permission if LAZY_PERMISSION is "true"
 if [[ "${LAZY_PERMISSION}" == "true" ]]; then
-  echo 'Adjusting Permission...'
-  chown -R www-data:www-data /var/www/html ||
-    {
-      echo 'Permission Adjustment Failed'
-      exit 1
-    }
+  {
+    echo 'Adjusting Permission (own)...'
+    chown -R www-data:www-data /var/www/html
+  } || {
+    echo 'E: PERMISSION ADJUSTMENT FAILED (own)'
+    exit 1
+  }
+
+  {
+    echo 'Adjusting Permission (mod)...'
+    chmod -R u+rwX,g+rwX /var/www/html
+  } || {
+    echo 'E: PERMISSION ADJUSTMENT FAILED (mod)'
+    exit 1
+  }
 fi
 
 #Start apache2
+echo 'Starting Apache2...'
 exec apache2-foreground
