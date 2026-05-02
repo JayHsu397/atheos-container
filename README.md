@@ -118,7 +118,9 @@ systemctl --user start atheos
 
 | Name | Description |
 |---|---|
-| `LAZY_PERMISSION` | Adjust permissions at runtime, visit `start.sh` to know how it works |
+| `LAZY_PERMISSION` | Adjust permissions at runtime |
+> [!Warning]
+> The permission of the **host directory which is bind-mounted** is expected to change after setting `LAZY_PERMISSION` to `true`, visit [`start.sh`](https://github.com/JayHsu397/atheos-container/blob/main/start.sh) to know how it works
 
 Additional notes:
 
