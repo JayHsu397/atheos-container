@@ -104,7 +104,7 @@ WantedBy=default.target
 > [!CAUTION]
 > - `/var/www/html/workspace` uses a bind mount
 > - while `/var/www/html/data`, `plugins`, and `theme` use named volumes
-> - See [volume](#4.Volumes) for more
+> - See [volume](#4-volumes) for more
 
 > [!NOTE]
 > Remember to run the commands below after configuring your Quadlet file:
