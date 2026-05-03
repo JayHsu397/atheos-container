@@ -2,7 +2,7 @@
 
 Unofficial container image of Atheos.
 
-Powered by Atheos IDE
+Upstream App from [Athes-IDE](https://github.com/Atheos)
 
 ## 1. Features
 
