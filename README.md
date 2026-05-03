@@ -1,6 +1,6 @@
 # Atheos Container Image
 
-Unofficial container image of Atheos.
+Unofficial container image of [Atheos](https://github.com/Atheos/Atheos).
 
 Upstream App from [Athes-IDE](https://github.com/Atheos)
 
